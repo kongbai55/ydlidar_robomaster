@@ -1,1 +1,2 @@
 # ydlidar_robomaster
+本项目使用了ydlidar x3激光雷达进行建图与导航，amcl进行定位，robomaster底盘驱动行驶

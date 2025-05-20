@@ -1,0 +1,57 @@
+#move_base,
+shutdown_costmaps: false
+
+#cmd_velHz
+controller_frequency: 10.0
+#s
+controller_patience: 3.0
+
+#Hz
+planner_frequency: 1.0
+#s
+planner_patience: 3.0
+
+#-1
+max_planning_retries: 1
+
+#s
+oscillation_timeout: 10.0
+#m
+oscillation_distance: 0.03
+
+#
+recovery_behavior_enabled: true
+#
+clearing_rotation_allowed: true
+
+#s
+conservative_reset_dist: 3.0
+
+#
+recovery_behaviors:
+- name: 'recovery_behaviors1' #1,
+  type: 'clear_costmap_recovery/ClearCostmapRecovery'
+- name: 'recovery_behaviors2' #2
+  type: 'rotate_recovery/RotateRecovery'
+# - name: 'recovery_behaviors3' #3
+# type: 'move_slow_and_clear/MoveSlowAndClear'
+
+#1
+recovery_behaviors1:
+reset_distance: 1.0
+
+#2
+recovery_behaviors2:
+reset_distance: 2.0
+
+#3
+recovery_behaviors3:
+#1
+clearing_distance: 4.0
+#m/s
+limited_trans_speed: 0.1
+#rad/s
+limited_rot_speed: 0.4
+#m
+limited_distance: 0.3
+

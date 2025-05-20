@@ -1,0 +1,28 @@
+<launch>
+
+    <arg name="lidar_type" value="$(env LIDAR_TYPE)" />
+
+	<arg name="temporalUpdate" default="-1.0" />
+
+	<arg name="scan_topic" default="scan" />
+
+	<arg name="frame_id" default="laser" />
+    <!-- 设置地图的配置文件 -->
+    <arg name="map" default="map3.yaml" />
+    <!-- 运行地图服务器，并且加载设置的地图-->
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find robomaster_driver)/maps/$(arg map)"/>
+    
+    <include file="$(find ydlidar_ros_driver)/launch/ydlidar.launch"/>
+
+    <include file="$(find rf2o_laser_odometry)/launch/rf2o_laser_odometry.launch">
+		<arg name="scan_topic" value="$(arg scan_topic)" />
+	</include>
+    <!-- 启动AMCL节点 -->
+    <include file="$(find robomaster_driver)/launch/amcl_omni.launch" />
+
+	<node pkg="tf" type="static_transform_publisher" name="base_link_to_laser"
+          args="0 0 0.13 0 0 0  /base_link /$(arg frame_id)  100"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ydlidar_ros_driver)/rviz/test_map.rviz" />
+
+</launch>
+
